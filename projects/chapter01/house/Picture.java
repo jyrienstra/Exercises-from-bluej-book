@@ -15,6 +15,7 @@ public class Picture
     private Square window;
     private Triangle roof;
     private Circle sun;
+    private Person person;
 
     /**
      * Constructor for objects of class Picture
@@ -55,7 +56,22 @@ public class Picture
         sun.changeSize(80);
         sun.makeVisible();
     }
-
+   
+     /**
+     * Let the sun go down
+     * And let a man walk to the house
+     * Method test
+     */
+    public void setSunset(){
+       if(sun != null){ //alleen als de zon er al is
+            sun.slowMoveVertical(250);
+            person = new Person();
+            person.makeVisible();
+            person.moveHorizontal(200);
+            person.slowMoveHorizontal(-200);
+       }
+    }
+    
     /**
      * Change this picture to black/white display
      */
