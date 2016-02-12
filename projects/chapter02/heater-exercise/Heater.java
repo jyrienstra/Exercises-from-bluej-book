@@ -7,28 +7,42 @@
  */
 public class Heater
 {
-    private double temperature;
+    private double temperature; //The temperature of the heater
+    private double min; //The minimum temperature of the heater
+    private double max; //The maximum temperature of the heater
+    private double increment; 
 
     /**
      * Constructor for objects of class Heater
      */
-    public Heater()
+    public Heater(double minTemperature, double maxTemperature)
     {
+        min = minTemperature;
+        max = maxTemperature;
+        increment = 5;
         temperature = 15;
     }
 
     /**
-     * Increase the temperature by 5 degrees
+     * Increase the temperature by a certain increment
      */
     public void warmer(){
-        temperature += 5;
+        if(temperature == max){ //check if the temperature is equal to the maximum alllowed temperature
+            System.out.println("The heater has reached it's maximum limit of temperature: " + max + " degrees");
+        }else{
+            temperature += increment;
+        }
     }
     
     /**
-     * Decrease the temperature by 5 degrees
+     * Decrease the temperature by a certain increment
      */
     public void cooler(){
-        temperature -= 5;
+         if(temperature == min){ //check if the temperature is equal to the minimum allowed temperature
+            System.out.println("The heater has reached it's mimimum limit of temperature: " + min + " degrees");
+        }else{
+            temperature -= increment;
+        }
     }
     
     /**
