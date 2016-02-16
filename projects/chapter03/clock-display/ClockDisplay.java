@@ -75,10 +75,21 @@ public class ClockDisplay
     
     /**
      * Update the internal string that represents the display.
+     * If the hours are lower than 12 return am
+     * If the hours are higher than 12 return pm
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int hour = hours.getValue(); //Make an int called hour with the value of hours
+        if(hour < 12) { //If the hours are lower than 12 return am
+            displayString = hours.getDisplayValue() + ":" + 
+                    minutes.getDisplayValue() + "am";
+        }else if (hour > 12 && hour < 24){ //If the hours are higher than 12 but lower than 24
+            displayString = (hour - 12) + ":" + 
+                    minutes.getDisplayValue() + "pm";
+        }else if (hour == 24){ //display 00 am when the hour is on 24
+            displayString = "00:" + minutes.getDisplayValue() + "am"; 
+        }
+        
     }
 }
