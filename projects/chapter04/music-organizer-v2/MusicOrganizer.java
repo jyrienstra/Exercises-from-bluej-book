@@ -58,7 +58,7 @@ public class MusicOrganizer
      */
     public void listAllFiles(){
         for(String filename: files) {
-             System.out.println(filename);
+            System.out.println(filename);
         }
 
     }
@@ -79,6 +79,22 @@ public class MusicOrganizer
            
              if(noMatches == true){
                  System.out.print("No matches found");
+            }
+        }
+    }
+    
+    /**
+     * Play a sample of all mathing songs
+     * 15 seconds longs
+     * Using the MusicPlayer class p
+     * @param searchString The string that will be used for the search
+     */
+    public void playSample(String searchString){
+        for(String filename : files){
+            if(filename.contains(searchString)) {
+                //A file that matches the string
+                player.playSample(filename); //play a sample of 15 seconds for the given filename
+                
             }
         }
     }
