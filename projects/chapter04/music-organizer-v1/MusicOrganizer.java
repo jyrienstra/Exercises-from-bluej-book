@@ -59,4 +59,18 @@ public class MusicOrganizer
             files.remove(index);
         }
     }
+    
+   /** 
+     * Validates a index number with the collection 
+     * @param index The index of the file that has to be validated 
+     * @return false if the index is not valid / true if the index is valid 
+     */ 
+    public boolean validIndex(int index){ 
+         if(index >= 0 && index < files.size()) { 
+             return true; //return true if the index is valid 
+        }else{ 
+             return false; //return false if the index is not valid 
+        } 
+             
+    } 
 }
