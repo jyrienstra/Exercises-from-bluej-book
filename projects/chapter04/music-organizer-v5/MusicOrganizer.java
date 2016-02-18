@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 /**
  * A class to hold details of audio tracks.
@@ -15,6 +17,7 @@ public class MusicOrganizer
     private MusicPlayer player;
     // A reader that can read music files and load them as tracks.
     private TrackReader reader;
+ 
 
     /**
      * Create a MusicOrganizer
@@ -55,6 +58,29 @@ public class MusicOrganizer
     {
         if(indexValid(index)) {
             Track track = tracks.get(index);
+            track.increasePlayCount();
+            player.startPlaying(track.getFilename());
+            System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+            System.out.println("" + track.getPlayCount() + "a");
+        }
+    }
+    
+    /**
+     * Play a random track in the collection.
+     */
+    public void playRandomTrack()
+    {
+        int amountOfTracks;
+        int index;
+        amountOfTracks = tracks.size();
+        Random rnd = new Random();;
+        int randomNum = rnd.nextInt((amountOfTracks - 0) + 1) + 0;
+            //System.out.println(randomNum);
+        index = rnd.nextInt(amountOfTracks);
+        
+        if(indexValid(index)) {
+            Track track = tracks.get(index);
+            track.increasePlayCount();
             player.startPlaying(track.getFilename());
             System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
         }
@@ -93,6 +119,19 @@ public class MusicOrganizer
         System.out.println();
     }
     
+    public void deleteBySearch(String searchString){
+        Iterator<Track> it = tracks.iterator();
+        while(it.hasNext()){
+            Track t = it.next();
+            String title = t.getTitle();
+            System.out.println(t.getTitle());
+             if(title.contains(searchString)){
+                 it.remove();
+                }
+        }
+}
+
+
     /**
      * List all tracks by the given artist.
      * @param artist The artist's name.

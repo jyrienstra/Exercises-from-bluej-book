@@ -13,6 +13,8 @@ public class Track
     private String title;
     // Where the track is stored.
     private String filename;
+    // 
+    private int playCount;
     
     /**
      * Constructor for objects of class Track.
@@ -43,6 +45,18 @@ public class Track
     public String getArtist()
     {
         return artist;
+    }
+    
+    public void increasePlayCount(){
+        playCount++;
+    }
+   
+    public void clearPlayCount(){
+        playCount = 0;
+    }
+    
+    public int getPlayCount(){
+        return playCount;
     }
     
     /**
