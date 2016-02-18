@@ -17,13 +17,16 @@ public class ClockDisplay
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
-    
+    private String clockType; //12 or 24 hour clock
+
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
+     * @param clockType 12 or 24
      */
     public ClockDisplay()
     {
+        clockType = "24"; //default is a 24 hour clock
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
         updateDisplay();
@@ -33,9 +36,11 @@ public class ClockDisplay
      * Constructor for ClockDisplay objects. This constructor
      * creates a new clock set at the time specified by the 
      * parameters.
+     * @param clockType 12 or 24
      */
     public ClockDisplay(int hour, int minute)
     {
+        clockType = "24"; //default is a 24 hour clock
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
@@ -72,7 +77,16 @@ public class ClockDisplay
     {
         return displayString;
     }
+
     
+    /**
+     * Set the clock to a 12 or 24 hour display
+     * @param type can be 12 or 24 clock
+     */
+    public void setClockType(String type){
+        clockType = type;
+    }
+
     /**
      * Update the internal string that represents the display.
      * If the hours are lower than 12 return am
@@ -81,15 +95,22 @@ public class ClockDisplay
     private void updateDisplay()
     {
         int hour = hours.getValue(); //Make an int called hour with the value of hours
-        if(hour < 12) { //If the hours are lower than 12 return am
+
+        if(clockType == "12"){
+            if (hour == 0) { 
+                //when the clock is on 24 hours or 12 hours
+                //See numberDisplay, when the rolloverlimit is reached the value is set to 0
+                displayString = "12:" + minutes.getDisplayValue() + "am";
+            } else if (hour < 12) {
+                displayString = hour + ":" + minutes.getDisplayValue() + "am";
+            } else if (hour == 12) {
+                displayString =  "12" + ":" + minutes.getDisplayValue() + "pm";
+            } else if (hour < 24) {
+                displayString =  (hour-12) + ":" + minutes.getDisplayValue() + "pm";
+            }
+        }else{
             displayString = hours.getDisplayValue() + ":" + 
-                    minutes.getDisplayValue() + "am";
-        }else if (hour > 12 && hour < 24){ //If the hours are higher than 12 but lower than 24
-            displayString = (hour - 12) + ":" + 
-                    minutes.getDisplayValue() + "pm";
-        }else if (hour == 24){ //display 00 am when the hour is on 24
-            displayString = "00:" + minutes.getDisplayValue() + "am"; 
+            minutes.getDisplayValue();
         }
-        
     }
 }
