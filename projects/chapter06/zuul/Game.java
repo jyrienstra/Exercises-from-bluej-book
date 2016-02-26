@@ -1,3 +1,4 @@
+import java.util.Iterator;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -14,9 +15,10 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.07.31
  */
-
+import java.util.*;
 public class Game 
 {
+    
     private Parser parser;
     private Room currentRoom;
 
@@ -90,7 +92,9 @@ public class Game
     private void printLocationInfo(){
         System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
-        System.out.println(   currentRoom.getExitString()  );
+       
+        currentRoom.printExits();
+        System.out.println();
     }
 
     /**

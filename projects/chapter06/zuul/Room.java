@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -15,10 +16,7 @@
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
+    private HashMap<String, Room> exits; //hashmap containing a room with its exist
 
     /**
      * Create a room described "description". Initially, it has
@@ -29,68 +27,52 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<String,Room>();
     }
 
     /**
      * Define the exits of this room.  Every direction either leads
      * to another room or is null (no exit there).
      * @param north The north exit.
-     * @param east The east east.
+     * @param east The east east.   
      * @param south The south exit.
      * @param west The west exit.
      */
     public void setExits(Room north, Room east, Room south, Room west) 
     {
         if(north != null)
-            northExit = north;
+            exits.put("north", north); //insert the room with its corresponding exit in the hashmap
         if(east != null)
-            eastExit = east;
+            exits.put("east", east); //insert the room with its corresponding exit in the hashmap
         if(south != null)
-            southExit = south;
+            exits.put("south", south); //insert the room with its corresponding exit in the hashmap
         if(west != null)
-            westExit = west;
+            exits.put("west", west); //insert the room with its corresponding exit in the hashmap
     }
 
     /**
      * Get the current possible exits based on the location
      */
     public Room getExit(String direction){
-        if(direction.equals("north")) {
-            return northExit;
-        }
-        if(direction.equals("east")) {
-            return eastExit;
-        }  
-        if(direction.equals("south")) {
-            return southExit;
-        } 
-        if(direction.equals("west")) {
-            return westExit;
-        } 
-        return null;
+        return exits.get(direction); //get the current exit based on the "key" input example north returns exit north
+        
     }
-
+    
+   
     /**
-     * Returns string with possible exits of the space
-     * Example: Exits: north west
-     * @return a description of the possible exits in the current space
+     * Print all exits
+     * Make a collection of the exits hashmap
+     * Print every "value" exit
      */
-    public String getExitString(){
-        if(northExit != null){
-            return "north";
+    public void printExits(){
+        for(String exit : exits.keySet() )
+        {
+            System.out.print(exit);
+            System.out.print(" ");
         }
-        if(eastExit != null){
-            return "east";
-        }
-        if(southExit != null){
-            return "south";
-        }
-        if(westExit != null){
-            return "west";
-        }
-        return null;
     }
-
+    
+   
     /**
      * @return The description of the room.
      */
@@ -98,5 +80,5 @@ public class Room
     {
         return description;
     }
-
+    
 }
