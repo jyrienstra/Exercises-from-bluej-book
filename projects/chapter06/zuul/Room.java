@@ -71,6 +71,27 @@ public class Room
     }
 
     /**
+     * Returns string with possible exits of the space
+     * Example: Exits: north west
+     * @return a description of the possible exits in the current space
+     */
+    public String getExitString(){
+        if(northExit != null){
+            return "north";
+        }
+        if(eastExit != null){
+            return "east";
+        }
+        if(southExit != null){
+            return "south";
+        }
+        if(westExit != null){
+            return "west";
+        }
+        return null;
+    }
+
+    /**
      * @return The description of the room.
      */
     public String getDescription()
