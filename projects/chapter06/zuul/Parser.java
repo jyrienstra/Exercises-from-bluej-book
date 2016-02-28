@@ -62,4 +62,11 @@ public class Parser
             return new Command(null, word2); 
         }
     }
+    
+    /**
+     * Show all available commands
+     */
+    public void showCommands(){
+        commands.showAll();
+    }
 }

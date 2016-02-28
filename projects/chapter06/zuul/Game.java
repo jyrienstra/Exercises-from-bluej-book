@@ -120,8 +120,10 @@ public class Game
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
+        }else if (commandWord.equals("eat")) {
+            eat();
         }else if (commandWord.equals("look")) {
-            look();
+            look();    
         }
 
         return wantToQuit;
@@ -140,7 +142,7 @@ public class Game
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        parser.showCommands();
     }
 
     /** 
@@ -187,9 +189,16 @@ public class Game
     
     /**
      * Look around
-     * Print where we currently are
+     * Print where we currently are and the exits
      */
     private void look(){
-        System.out.println(currentRoom.getDescription());
+       // System.out.println(currentRoom.getDescription());
+        printLocationInfo();
+    }
+    /**
+     * Eat some food
+     */
+    private void eat(){
+        System.out.println("You have eaten now and are not hungry anymore");
     }
 }
