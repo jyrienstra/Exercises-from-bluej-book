@@ -142,7 +142,8 @@ public class Game
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        parser.showCommands();
+        System.out.print( parser.showCommands() );
+        System.out.println();
     }
 
     /** 

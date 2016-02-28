@@ -66,7 +66,7 @@ public class Parser
     /**
      * Show all available commands
      */
-    public void showCommands(){
-        commands.showAll();
+    public String showCommands(){
+        return commands.showAll();
     }
 }
