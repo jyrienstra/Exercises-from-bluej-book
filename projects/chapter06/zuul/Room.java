@@ -17,6 +17,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits; //hashmap containing a room with its exist
+    private HashMap<Room, Item> items; //hashmap containing a room with its ite
 
     /**
      * Create a room described "description". Initially, it has
@@ -72,6 +73,19 @@ public class Room
         }
     }
     
+   /**
+    * Add an item to a room
+    */
+   public void addItem(Room room, Item item){
+       items.put(room,item);
+    }
+   
+   /**
+    * Get all items in a room
+    */
+   public HashMap<Room, Item> getItems(){
+       return items;
+   }
    
     /**
      * @return The description of the room.

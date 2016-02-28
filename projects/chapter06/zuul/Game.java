@@ -21,6 +21,7 @@ public class Game
     
     private Parser parser;
     private Room currentRoom;
+    private Stack<Room> previousRooms;
 
     /**
      * Create the game and initialise its internal map.
@@ -29,6 +30,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        previousRooms = new Stack<Room>(); //a stack containing the previousrooms
     }
 
     /**
@@ -51,6 +53,9 @@ public class Game
         pub.setExits(null, outside, null, null);
         lab.setExits(outside, office, null, null);
         office.setExits(null, null, null, lab);
+        
+        //set items in a room
+        
 
         currentRoom = outside;  // start game outside
     }
@@ -124,8 +129,9 @@ public class Game
             eat();
         }else if (commandWord.equals("look")) {
             look();    
+        }else if (commandWord.equals("back")) {
+            back(); 
         }
-
         return wantToQuit;
     }
 
@@ -147,7 +153,21 @@ public class Game
     }
 
     /** 
-     * Try to go in one direction. If there is an exit, enter
+     * Go one room back
+     */
+    private void back()
+    {
+        if(!previousRooms.empty()){
+        currentRoom = previousRooms.peek(); //take the top value from the stack and make it the current room
+        previousRooms.pop(); //remove the top object because we are currently in the previous room.
+        printLocationInfo();
+    }else{
+        System.out.println("You can't go back because there is no previous location");
+    }
+    }
+    
+     /** 
+      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
      */
     private void goRoom(Command command) 
@@ -167,8 +187,11 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
-            printLocationInfo();
+
+                previousRooms.push(currentRoom);
+                currentRoom = nextRoom; //the nextroom is now the currentroom
+            
+                printLocationInfo();
         }
     }
 
