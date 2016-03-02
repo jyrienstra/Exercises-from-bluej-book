@@ -17,7 +17,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits; //hashmap containing a room with its exist
-    private HashMap<Room, Item> items; //hashmap containing a room with its ite
+    private ArrayList<Item> items; //arraylist containing all the items in aroom
 
     /**
      * Create a room described "description". Initially, it has
@@ -29,6 +29,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<String,Room>();
+        items = new ArrayList<Item>();
     }
 
     /**
@@ -76,16 +77,25 @@ public class Room
    /**
     * Add an item to a room
     */
-   public void addItem(Room room, Item item){
-       items.put(room,item);
+   public void addItem(Item item){
+       items.add(item);
     }
    
    /**
     * Get all items in a room
     */
-   public HashMap<Room, Item> getItems(){
+   public ArrayList<Item> getItems(){
        return items;
    }
+   
+   /**
+    * Print all items in a room
+    */
+   public void printItems(){
+       for(Item test : items){
+           System.out.println(test.toString()); 
+        }
+    }
    
     /**
      * @return The description of the room.

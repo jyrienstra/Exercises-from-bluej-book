@@ -8,17 +8,34 @@
 public class Item
 {
     // instance variables - replace the example below with your own
-    private String description;
-    private int weight;
+    private String description; //The description of the item
+    private String name; //The name of the item
+    private int weight; //The weight of the item
 
     /**
      * Constructor for objects of class item
+     * @param name The name of the item
+     * @param description The description of the item
+     * @param weight The weight of the item
+     */
+    public Item(String name, String description, int weight)
+    {
+        this.description = description;
+        this.weight = weight;
+        this.name = name;
+    }
+    
+    /**
+     * Constructor for objects of class item
+     * With default values(for testing)
      */
     public Item()
     {
-        description = "";
-        weight = 0;
+        this.description = "description";
+        this.weight = 5;
+        this.name = "name";
     }
+
 
     /**
      * Display the weight of an item

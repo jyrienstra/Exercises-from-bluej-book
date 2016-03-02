@@ -18,16 +18,18 @@ import java.util.Iterator;
 import java.util.*;
 public class Game 
 {
-    
+
     private Parser parser;
-    private Room currentRoom;
+    //private Room currentRoom;
     private Stack<Room> previousRooms;
+    private Player player;
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
+        player = new Player();
         createRooms();
         parser = new Parser();
         previousRooms = new Stack<Room>(); //a stack containing the previousrooms
@@ -53,11 +55,11 @@ public class Game
         pub.setExits(null, outside, null, null);
         lab.setExits(outside, office, null, null);
         office.setExits(null, null, null, lab);
-        
-        //set items in a room
-        
 
-        currentRoom = outside;  // start game outside
+       //add items in rooms
+        outside.addItem(new Item());
+        
+          player.setCurrentRoom(outside);
     }
 
     /**
@@ -95,10 +97,11 @@ public class Game
      * Print the current location and possible exits
      */
     private void printLocationInfo(){
-        System.out.println("You are " + currentRoom.getDescription());
+        System.out.println("You are " + player.getCurrentRoom().getDescription());
         System.out.print("Exits: ");
-       
-        currentRoom.printExits();
+
+        player.getCurrentRoom().printExits();
+        //currentRoom.printExits();
         System.out.println();
     }
 
@@ -158,16 +161,16 @@ public class Game
     private void back()
     {
         if(!previousRooms.empty()){
-        currentRoom = previousRooms.peek(); //take the top value from the stack and make it the current room
-        previousRooms.pop(); //remove the top object because we are currently in the previous room.
-        printLocationInfo();
-    }else{
-        System.out.println("You can't go back because there is no previous location");
+            player.setCurrentRoom( previousRooms.peek() );//take the top value from the stack and make it the current room
+            previousRooms.pop(); //remove the top object because we are currently in the previous room.
+            printLocationInfo();
+        }else{
+            System.out.println("You can't go back because there is no previous location");
+        }
     }
-    }
-    
-     /** 
-      * Try to go in one direction. If there is an exit, enter
+
+    /** 
+     * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
      */
     private void goRoom(Command command) 
@@ -181,17 +184,17 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
 
-                previousRooms.push(currentRoom);
-                currentRoom = nextRoom; //the nextroom is now the currentroom
-            
-                printLocationInfo();
+            previousRooms.push( player.getCurrentRoom() );
+            player.setCurrentRoom(nextRoom); //the nextroom is now the currentroom
+
+            printLocationInfo();
         }
     }
 
@@ -210,15 +213,16 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    
+
     /**
      * Look around
      * Print where we currently are and the exits
      */
     private void look(){
-       // System.out.println(currentRoom.getDescription());
+        // System.out.println(currentRoom.getDescription());
         printLocationInfo();
     }
+
     /**
      * Eat some food
      */
