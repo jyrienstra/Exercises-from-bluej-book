@@ -39,7 +39,7 @@ public class Item
 
     /**
      * Display the weight of an item
-     * @return the weight of the item
+     * @return weight The weight of the item
      */
     public int getWeight()
     {
@@ -47,8 +47,16 @@ public class Item
     }
 
     /**
+     * Get the name of an item
+     * @return name The name of the item
+     */
+    public String getName(){
+        return name;
+    }
+    
+    /**
      * Display the description of the item
-     * @return the description of the item
+     * @return description The description of the item
      */
     public String getDescription()
     {

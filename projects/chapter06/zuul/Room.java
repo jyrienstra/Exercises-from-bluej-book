@@ -89,11 +89,28 @@ public class Room
    }
    
    /**
+     * Find an item object by name(string)
+     * @param item The item that has to be searched
+     * @return Item The first item that matches in the backpack
+     * @return null If there are no matches
+     */
+    public Item getItemByName(String itemName){
+        if(itemName!=null){
+            for(Item item : items){
+                if(item.getName().equals(itemName)){
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+   
+   /**
     * Print all items in a room
     */
    public void printItems(){
        for(Item test : items){
-           System.out.println(test.toString()); 
+           System.out.println(test.getName()); 
         }
     }
    

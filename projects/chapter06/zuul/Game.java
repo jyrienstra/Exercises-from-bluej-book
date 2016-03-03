@@ -56,10 +56,12 @@ public class Game
         lab.setExits(outside, office, null, null);
         office.setExits(null, null, null, lab);
 
-       //add items in rooms
-        outside.addItem(new Item());
-        
-          player.setCurrentRoom(outside);
+        //Declare items
+        Item Weightbooster = new Item("Weightbooster", "+5 Kilograms of weight your backpack can hold", 0);
+        //add items in rooms
+        outside.addItem(Weightbooster);
+
+        player.setCurrentRoom(outside);
     }
 
     /**
@@ -97,12 +99,19 @@ public class Game
      * Print the current location and possible exits
      */
     private void printLocationInfo(){
+        //Print info about the current room description
         System.out.println("You are " + player.getCurrentRoom().getDescription());
-        System.out.print("Exits: ");
 
+        //Print the exits
+        System.out.print("Exits: ");
         player.getCurrentRoom().printExits();
-        //currentRoom.printExits();
         System.out.println();
+
+        //Print the current items that are in the room
+        System.out.print("Items: ");
+        player.getCurrentRoom().printItems();
+        System.out.println();
+
     }
 
     /**
@@ -119,7 +128,8 @@ public class Game
             return false;
         }
 
-        String commandWord = command.getCommandWord();
+        String commandWord = command.getCommandWord(); //The first word of the command
+        String secondWord = command.getSecondWord(); //The second word of the command
         if (commandWord.equals("help")) {
             printHelp();
         }
@@ -134,6 +144,12 @@ public class Game
             look();    
         }else if (commandWord.equals("back")) {
             back(); 
+        }else if (commandWord.equals("takeItem")){
+            player.takeItem(secondWord); //take an item from the room
+        }else if (commandWord.equals("dropItem")){
+            player.dropItem(secondWord); //drop an item from the backpack
+        }else if (commandWord.equals("drink")){
+            player.drink(secondWord); //drink an item from the backpack
         }
         return wantToQuit;
     }
